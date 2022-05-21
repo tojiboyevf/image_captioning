@@ -15,9 +15,13 @@ class EncoderCNN(nn.Module):
         self.embed = nn.Linear(resnet.fc.in_features, embed_size)
 
     def forward(self, images):
+
         features = self.resnet(images)
-        features = features.view(features.size(0), -1)
+
+        features = features.view(features.size(0), -1) # in this CNN last linear layer was dropped that's
+                                                       # why we should change from 2D (N, B, W, H)  to 1D (N, Features)
         features = self.embed(features)
+
         return features
     
 
@@ -76,8 +80,15 @@ class DecoderRNN(nn.Module):
             
         return outputs
 
+   
     def sample(self, inputs, states=None, max_len=20):
-        " accepts pre-processed image tensor (inputs) and returns predicted sentence (list of tensor ids of length max_len) "
+        """ 
+        In testing we input only image but not the ground truth caption. 
+        We use sample function during the testing(inference)
+
+        input: pre-processed image tensor (inputs)
+        return: predicted sentence (list of tensor ids of length max_len) 
+        """
         device = torch.device('cuda:0' if torch.cuda.is_available() else "cpu")
         
         # initialize the output
