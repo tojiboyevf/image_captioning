@@ -8,6 +8,21 @@ from PIL import Image
 from nltk.translate.bleu_score import sentence_bleu
 from tqdm.auto import tqdm
 
+def check_create_dir(full_path):
+    if not os.path.isdir(full_path):
+        os.makedirs(full_path)
+
+def get_picture_caption(idx, dataset, model, idx2word, beam_width=-1):
+    """
+    If beam_width=-1 then it is greedy mode!
+    """
+    im, cp, _ = dataset[idx]
+    if beam_width==-1:
+        capidx = model.sample(im.unsqueeze(0))[0].detach().cpu().numpy()
+    caption_pred = ''.join(list(itertools.takewhile(lambda word: word.strip() != '<end>',
+                                                         map(lambda idx: idx2word[idx]+' ', iter(capidx))))[1:])
+    return caption_pred
+
 
 def preprocess_input(x):
     x -= 0.5
