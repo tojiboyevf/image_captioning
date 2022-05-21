@@ -24,3 +24,33 @@ cd ..
   * **2014 Train images [83K/13GB]** (extract the train2014 folder and place at location cocoapi/images/train2014/)
   * **2014 Val images [41K/6GB]** (extract the val2014 folder and place at location cocoapi/images/val2014/)
   * **2014 Test images [41K/6GB]** (extract the test2014 folder and place at location cocoapi/images/test2014/)
+
+# Environment
+We use `conda` package manager to install required python packages. In order to improve speed and reliability of package version resolution it is advised to use `mamba-forge` ([installation](https://github.com/conda-forge/miniforge#mambaforge)) that works over `conda`. Once `mamba is installed`, run the following command (while in the root of the repository):
+```
+mamba env create -f environment.yml
+```
+This will create new environment named `img_caption` with many required packages already installed. You can install additional packages by running:
+```
+mamba install <package name>
+```
+You should run the following commands to install pytorch library:
+
+```
+conda activate img_caption
+```
+
+```
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+```
+
+```
+conda install -c pytorch torchtext
+```
+
+In order to read and run `Jupyter Notebooks` you may follow either of two options:
+1. [*recommended*] using notebook-compatibility features of modern IDEs, e.g. via `python` and `jupyter` extensions of [VS Code](https://code.visualstudio.com/).
+2. install jupyter notebook packages:
+  either with `mamba install jupyterlab` or with `mamba install jupyter notebook`
+
+*Note*: If you prefer to use `conda`, just replace `mamba` commands with `conda`, e.g. instead of `mamba install` use `conda install`.
