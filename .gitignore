@@ -1,0 +1,7 @@
+models/
+logs/
+cocoapi/
+.ipynb_checkpoints/
+__pycache__/
+annotations/
+.DS_Store
