@@ -1,5 +1,6 @@
 models/
-data/
+logs/
+cocoapi/
 .ipynb_checkpoints/
 __pycache__/
 annotations/

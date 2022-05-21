@@ -1,4 +1,7 @@
-# Instructions  
+# Instructions 
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tojiboyevf/image_captioning/blob/main/Training.ipynb)
+
 1. Clone this repo: https://github.com/cocodataset/cocoapi  
 ```
 git clone https://github.com/cocodataset/cocoapi.git  

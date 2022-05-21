@@ -75,3 +75,40 @@ class DecoderRNN(nn.Module):
         outputs = self.fc_out(outputs)
             
         return outputs
+
+    def sample(self, inputs, states=None, max_len=20):
+        " accepts pre-processed image tensor (inputs) and returns predicted sentence (list of tensor ids of length max_len) "
+        device = torch.device('cuda:0' if torch.cuda.is_available() else "cpu")
+        
+        # initialize the output
+        output = []
+        # batch_size
+        batch_size = inputs.shape[0]
+        
+        # initialize hidden state
+        self.hidden_state = torch.zeros((1, batch_size, self.hidden_size)).to(device)
+        self.cell_state = torch.zeros((1, batch_size, self.hidden_size)).to(device)
+    
+        while True: 
+            # pass through lstm unit(s)
+            lstm_out, (self.hidden_state, self.cell_state) = self.lstm(inputs, (self.hidden_state, self.cell_state))
+            
+            # pass through linear unit
+            outputs = self.fc_out(lstm_out)
+            
+            # predict the most likely next word
+            outputs = outputs.squeeze(1)
+            _, max_indice = torch.max(outputs, dim=1) 
+            
+            # storing the word predicted
+            output.append(max_indice.cpu().numpy()[0].item()) 
+            
+            if (max_indice == 1 or len(output) >= max_len):
+                # if reached the max length or predicted the end token
+                break
+            
+            ## embed the last predicted word to be the new input of the lstm
+            inputs = self.embed(max_indice) 
+            inputs = inputs.unsqueeze(1)
+            
+        return output
