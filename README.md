@@ -1,9 +1,11 @@
+# Guys, training `.ipynb` file is `densenet161_lstm.ipynb`
+
 # Instructions 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tojiboyevf/image_captioning/blob/main/Training.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/tojiboyevf/image_captioning/blob/main/densenet161_lstm.ipynb)
 
 
-1. To download some MS COCO specific data from here: http://cocodataset.org/#download (described below)
+1. Download some MS COCO specific data from here: http://cocodataset.org/#download (described below)
  or run `load_coco.sh`
 
 * Under **Annotations**, download:
