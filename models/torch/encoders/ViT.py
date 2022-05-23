@@ -3,7 +3,7 @@ import timm
 import torch.nn as nn
 
 
-class ViT(nn.Module):
+class Encoder(nn.Module):
     def __init__(self, embed_size):
         super().__init__()
         self.vit = torch.hub.load('facebookresearch/deit:main', 'deit_base_patch16_224', pretrained=True)
