@@ -1,9 +1,6 @@
 logs/
-cocoapi/
 .ipynb_checkpoints/
 __pycache__/
 annotations/
 .DS_Store
-data/flickr8k
-data/glove.6B
-data/*.zip
+data/
