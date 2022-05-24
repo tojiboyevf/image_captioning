@@ -8,7 +8,7 @@ from models.torch.decoders.monolstm import Decoder
 
 class Encoder(nn.Module):
     def __init__(self, embed_size):
-        """Load the pretrained Densenet-201 and replace top classifier layer."""
+        """Load the pretrained Densenet-161 and replace top classifier layer."""
         super(Encoder, self).__init__()
         densenet = models.densenet161(pretrained=True)
         modules = list(densenet.children())[:-1]
