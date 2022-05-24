@@ -1,5 +1,18 @@
 ## Guys, training `.ipynb` file is `densenet161_lstm.ipynb`. You can look at this notebook and write your own model. Just enough to replace your model in this notebook and you can choose different parameters if you wish
 
+# Steps
+1. Clone this repository
+```bash
+$ git clone https://github.com/tojiboyevf/image_captioning.git
+```
+
+2. Move to project's directory and download dataset (Flickr8k) and GloVe
+```bash
+$ cd image_captioning
+$ bash load_flickr8k.sh
+$ bash load_glove.sh
+```
+
 # Instructions 
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/tojiboyevf/image_captioning/blob/main/densenet161_lstm.ipynb)
