@@ -1,6 +1,5 @@
 # %%
 import pickle
-import wandb
 from matplotlib import pyplot as plt
 from torch.nn.utils.rnn import pack_padded_sequence
 from torch.utils.data import DataLoader
@@ -55,21 +54,6 @@ NUM_EPOCHS = 2
 SAVE_FREQ = 10
 LOG_INTERVAL = 25 * (256 // BATCH_SIZE)
 
-run = wandb.init(project='image-captioning',
-                 entity='datalab-buet',
-                 name=f"{MODEL}_b{BATCH_SIZE}_emd{EMBEDDING}-{1}",
-                 # tensorboard=True, sync_tensorboard=True,
-                 config={"learning_rate": LR,
-                         "epochs": NUM_EPOCHS,
-                         "batch_size": BATCH_SIZE,
-                         "model": MODEL,
-                         "embedding": EMBEDDING,
-                         "embedding_dim": EMBEDDING_DIM,
-                         "attention_dim": ATTENTION_DIM,
-                         "decoder_dim": DECODER_SIZE,
-                         },
-                 reinit=True)
-
 # %%
 embedding_matrix = embedding_matrix_creator(embedding_dim=EMBEDDING_DIM, word2idx=word2idx)
 embedding_matrix.shape
@@ -110,10 +94,6 @@ def train_model(train_loader, model, loss_fn, optimizer, vocab_size, acc_fn, des
             print(f'{desc} {batch_idx + 1}/{len(train_loader)} '
                   f'train_loss: {running_loss / (batch_idx + 1):.4f} '
                   f'train_acc: {running_acc / (batch_idx + 1):.4f}')
-            wandb.log({
-                'train_loss': running_loss / (batch_idx + 1),
-                'train_acc': running_acc / (batch_idx + 1),
-            })
 
     return running_loss / len(train_loader)
 
@@ -156,12 +136,6 @@ params = final_model.parameters()
 
 optimizer = torch.optim.RMSprop(params=params, lr=LR)
 
-wandb.watch(final_model, log='all', log_freq=50)
-# wandb.watch(final_model.encoder, log='all', log_freq=50)
-wandb.watch(final_model.decoder, log='all', log_freq=50)
-wandb.save('vocab_set.pkl')
-
-sync_files_wandb(['main.ipynb', 'train_torch.py', 'models/torch/resnet101_attention.py'])
 
 # %%
 train_transformations = transforms.Compose([
@@ -215,9 +189,6 @@ for epoch in range(NUM_EPOCHS):
               ''.join([f'train_bleu{i}: {train_bleu[i]:.4f} ' for i in (1, 4)]),
               ''.join([f'val_bleu{i}: {val_bleu[i]:.4f} ' for i in (1, 4)]),
               )
-        wandb.log({f'val_bleu{i}': val_bleu[i] for i in (1, 2, 3, 4)})
-        wandb.log({'train_bleu': train_bleu[4]})
-        wandb.log({'val_bleu': val_bleu[4]})
         state = {
             'epoch': epoch + 1,
             'state_dict': final_model.state_dict(),
@@ -230,18 +201,14 @@ for epoch in range(NUM_EPOCHS):
             'val_bleus': val_bleu,
         }
         torch.save(state, f'{MODEL_NAME}_latest.pt')
-        wandb.save(f'{MODEL_NAME}_latest.pt')
         if train_loss < train_loss_min:
             train_loss_min = train_loss
             torch.save(state, f'{MODEL_NAME}''_best_train.pt')
-            wandb.save(f'{MODEL_NAME}''_best_train.pt')
         if val_bleu[4] > val_bleu4_max:
             val_bleu4_max = val_bleu[4]
             torch.save(state, f'{MODEL_NAME}''_best_val.pt')
-            wandb.save(f'{MODEL_NAME}''_best_val.pt')
 
 torch.save(state, f'{MODEL_NAME}_ep{NUM_EPOCHS:02d}_weights.pt')
-wandb.save(f'{MODEL_NAME}_ep{NUM_EPOCHS:02d}_weights.pt')
 final_model.eval()
 
 # %%
@@ -293,5 +260,4 @@ with torch.no_grad():
         print(setname, end=' ')
         for ngram in (1, 2, 3, 4):
             print(f'Bleu-{ngram}: {result[ngram]}', end=' ')
-            wandb.run.summary[f"{setname}_bleu{ngram}"] = result[ngram]
         print()
