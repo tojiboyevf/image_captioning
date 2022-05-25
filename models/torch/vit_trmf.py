@@ -16,5 +16,5 @@ class Captioner(nn.Module):
 
     def sample(self, images, max_len=40, endseq_idx=-1):
         features = self.encoder(images)
-        captions = self.decoder.sample(features=features, max_len=max_len, endseq_idx=endseq_idx)
+        captions = self.decoder.sample(inputs=features, max_len=max_len, endseq_idx=endseq_idx)
         return captions
