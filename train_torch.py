@@ -3,7 +3,7 @@ from torch.nn.utils.rnn import pack_padded_sequence
 
 from tqdm.auto import tqdm
 
-def train_model(train_loader, model, loss_fn, optimizer, vocab_size, acc_fn, desc='', log_interval=25):
+def train_model(train_loader, model, loss_fn, optimizer, desc='', log_interval=25):
     running_acc = 0.0
     running_loss = 0.0
     model.train()
@@ -38,12 +38,12 @@ def train_model(train_loader, model, loss_fn, optimizer, vocab_size, acc_fn, des
     return running_loss / len(train_loader)
 
 
-def evaluate_model(data_loader, model, loss_fn, vocab_size, bleu_score_fn, tensor_to_word_fn, desc=''):
+def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, desc=''):
     running_bleu = [0.0] * 5
     model.eval()
     t = tqdm(iter(data_loader), desc=f'{desc}')
     for batch_idx, batch in enumerate(t):
-        images, captions, lengths = batch
+        images, captions, _ = batch
         outputs = tensor_to_word_fn(model.sample(images).cpu().numpy())
 
         for i in (1, 2, 3, 4):

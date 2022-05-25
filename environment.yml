@@ -17,6 +17,7 @@ dependencies:
   - ipykernel
   - pyarrow 
   - jupyter
+  - timm
   - pip:
     - ipypb
     - opencv-python>=3.2.0.6
