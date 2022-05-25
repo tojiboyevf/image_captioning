@@ -147,7 +147,7 @@ class Flickr8kDataset(Dataset):
 
     @property
     def pad_value(self):
-        return 0
+        return self.word2idx["<pad>"]
 
     def __getitem__(self, index: int):
         return self.__get_item__fn(index)
