@@ -14,8 +14,3 @@ class Encoder(nn.Module):
             features = self.vit(images)
         features = self.embed(features)
         return features
-
-# model = Encoder(1280)
-# x = torch.randn((1, 3, 224, 224))
-# # print(model)
-# print(model(x).shape)
