@@ -28,10 +28,10 @@ class PositionalEncoding(nn.Module):
 class Decoder(nn.Module):
     def __init__(
         self,
+        embed_size, 
+        vocab_size,
         num_heads,
         decoder_layers,
-        embed_size, 
-        vocab_size, 
         embedding_matrix=None, 
         train_embd=True, 
         max_len=40, 
