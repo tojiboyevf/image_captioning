@@ -13,7 +13,7 @@ class Vocabulary(object):
         start_word="<start>",
         end_word="<end>",
         unk_word="<unk>",
-        annotations_file='../cocoapi/annotations/captions_train2014.json',
+        annotations_file='../data/coco/annotations/captions_train2014.json',
         vocab_from_file=False):
 
         self.vocab_threshold = vocab_threshold
