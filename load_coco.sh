@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p data/coco saved_models
+mkdir -p data/coco
 
 wget http://images.cocodataset.org/annotations/annotations_trainval2014.zip
 wget http://images.cocodataset.org/zips/val2014.zip
