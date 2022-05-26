@@ -10,7 +10,7 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 
-from utils_torch import split_data
+from ..utils_torch import split_data
 
 
 class Flickr8kDataset(Dataset):
