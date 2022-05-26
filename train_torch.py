@@ -1,9 +1,10 @@
 import torch
 from torch.nn.utils.rnn import pack_padded_sequence
+from metrics import default_accuracy_fn
 
 from tqdm.auto import tqdm
 
-def train_model(train_loader, model, loss_fn, optimizer, desc='', log_interval=25):
+def train_model(train_loader, model, loss_fn, optimizer, acc_fn=default_accuracy_fn, desc='', log_interval=25):
     running_acc = 0.0
     running_loss = 0.0
     model.train()
@@ -25,7 +26,7 @@ def train_model(train_loader, model, loss_fn, optimizer, desc='', log_interval=2
         loss.backward()
         optimizer.step()
 
-        running_acc += (torch.argmax(outputs, dim=1) == targets).sum().float().item() / targets.size(0)
+        running_acc += acc_fn(outputs, targets)
         running_loss += loss.item()
         t.set_postfix({'loss': running_loss / (batch_idx + 1),
                        'acc': running_acc / (batch_idx + 1),
