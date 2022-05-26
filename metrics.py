@@ -43,6 +43,3 @@ def accuracy_fn(ignore_value: int = 0):
         return (torch.argmax(source, dim=1)[mask] == target[mask]).sum().item() / mask.sum().item()
 
     return accuracy_ignoring_value
-
-def default_accuracy_fn(source: torch.Tensor, target: torch.Tensor):
-    return (torch.argmax(source, dim=1) == target).sum().float().item() / target.size(0)

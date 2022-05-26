@@ -1,10 +1,11 @@
 import torch
 from torch.nn.utils.rnn import pack_padded_sequence
-from metrics import default_accuracy_fn
 
 from tqdm.auto import tqdm
 
-def train_model(train_loader, model, loss_fn, optimizer, acc_fn=default_accuracy_fn, desc='', log_interval=25):
+def train_model(train_loader, model, loss_fn, optimizer,
+                acc_fn=lambda source, target: (torch.argmax(source, dim=1) == target).sum().float().item() / target.size(0),
+                desc='', log_interval=25):
     running_acc = 0.0
     running_loss = 0.0
     model.train()
