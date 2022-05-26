@@ -40,16 +40,19 @@ def train_model(train_loader, model, loss_fn, optimizer,
     return running_loss / len(train_loader)
 
 
-def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, desc=''):
+def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, data='flickr', desc=''):
     running_bleu = [0.0] * 5
     model.eval()
     t = tqdm(iter(data_loader), desc=f'{desc}')
     for batch_idx, batch in enumerate(t):
-        images, captions, _ = batch
+        if data=='coco':
+            images, captions = batch
+        else:
+            images, captions, _ = batch
         outputs = tensor_to_word_fn(model.sample(images).cpu().numpy())
 
         for i in (1, 2, 3, 4):
-            running_bleu[i] += bleu_score_fn(reference_corpus=captions, candidate_corpus=outputs, n=i)
+            running_bleu[i] += bleu_score_fn(captions, outputs, n=i)
         t.set_postfix({
             'bleu1': running_bleu[1] / (batch_idx + 1),
             'bleu4': running_bleu[4] / (batch_idx + 1),
