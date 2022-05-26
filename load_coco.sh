@@ -1,7 +1,5 @@
 #!/bin/bash
 
-pip install pycocotools
-
 mkdir -p data/coco saved_models
 
 wget http://images.cocodataset.org/annotations/annotations_trainval2014.zip

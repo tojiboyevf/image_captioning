@@ -18,6 +18,7 @@ dependencies:
   - pyarrow 
   - jupyter
   - timm
+  - pycocotools
   - pip:
     - ipypb
     - opencv-python>=3.2.0.6
