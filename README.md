@@ -60,3 +60,13 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
   either with `mamba install jupyterlab` or with `mamba install jupyter notebook`
 
 *Note*: If you prefer to use `conda`, just replace `mamba` commands with `conda`, e.g. instead of `mamba install` use `conda install`.
+
+# Evaluation 
+### Flickr8k
+
+|||bleu 1|bleu 2|bleu 3|bleu 4|
+|:---|:---:|:---:|:---:|:---:|:---:|
+|**densenet161 + transformer**|`train`<br>`val`<br>`test`|`69.55`<br>`65.71`<br>`65.98`|`49.93`<br>`44.46`<br>`44.79`|`35.55`<br>`29.94`<br>`30.04`|`25.03`<br>`20.13`<br>`19.75`|
+
+
+### COCO(2014) mini
