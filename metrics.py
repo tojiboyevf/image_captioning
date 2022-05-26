@@ -40,6 +40,6 @@ def bleu_score_fn(method_no: int = 4, ref_type='corpus'):
 def accuracy_fn(ignore_value: int = 0):
     def accuracy_ignoring_value(source: torch.Tensor, target: torch.Tensor):
         mask = target != ignore_value
-        return (source[mask] == target[mask]).sum().item() / mask.sum().item()
+        return (torch.argmax(source, dim=1)[mask] == target[mask]).sum().item() / mask.sum().item()
 
     return accuracy_ignoring_value
