@@ -99,3 +99,6 @@ class Decoder(nn.Module):
                 y_input = torch.cat((y_input, predicted), dim=1)
         
         return sampled_ids
+
+
+a = torch.randn((3, 3, 224, 224))
