@@ -61,7 +61,7 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
 
 *Note*: If you prefer to use `conda`, just replace `mamba` commands with `conda`, e.g. instead of `mamba install` use `conda install`.
 
-# Evaluation 
+# Evaluation results
 ### Flickr8k
 
 |||bleu 1|bleu 2|bleu 3|bleu 4|
