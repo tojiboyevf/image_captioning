@@ -1,25 +1,3 @@
-# Steps
-1. Clone this repository
-```bash
-$ git clone https://github.com/tojiboyevf/image_captioning.git
-```
-
-2. Move to project's directory and download dataset Flickr8k, COCO_2014 and GloVe
-```bash
-$ cd image_captioning
-$ bash load_flickr8k.sh
-$ bash load_glove.sh
-$ bash load_coco.sh
-```
-
-3. If you want to get the results for densenet161+lstm or vgg16+lstm then:
-```bash
-$ cp ./examples/cnn_lstm.ipynb ./
-```
-```
-run cnn_lstm.ipynb in the jupyter notebook(use instructions inside the notebook)
-```
-
 # Environment
 We use `conda` package manager to install required python packages. In order to improve speed and reliability of package version resolution it is advised to use `mamba-forge` ([installation](https://github.com/conda-forge/miniforge#mambaforge)) that works over `conda`. Once `mamba is installed`, run the following command (while in the root of the repository):
 ```
@@ -49,6 +27,27 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
   either with `mamba install jupyterlab` or with `mamba install jupyter notebook`
 
 *Note*: If you prefer to use `conda`, just replace `mamba` commands with `conda`, e.g. instead of `mamba install` use `conda install`.
+# Steps
+1. Clone this repository
+```bash
+$ git clone https://github.com/tojiboyevf/image_captioning.git
+```
+
+2. Move to project's directory and download dataset Flickr8k, COCO_2014 and GloVe
+```bash
+$ cd image_captioning
+$ bash load_flickr8k.sh
+$ bash load_glove.sh
+$ bash load_coco.sh
+```
+
+3. If you want to get the results for densenet161+lstm or vgg16+lstm then:
+```bash
+$ cp ./examples/cnn_lstm.ipynb ./
+```
+```
+run cnn_lstm.ipynb in the jupyter notebook(use instructions inside the notebook)
+```
 
 # Evaluation results
 ### Flickr8k
@@ -59,8 +58,6 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
 |**densenet161 + lstm**|`train`<br>`val`<br>`test`|`55.05`<br>`55.18`<br>`55.27`|`31.18`<br>`31.23`<br>`30.76`|`17.79`<br>`17.75`<br>`17.11`|`10.84`<br>`10.78`<br>`10.23`|
 |**densenet161 + transformer**|`train`<br>`val`<br>`test`|`69.55`<br>`65.71`<br>`65.98`|`49.93`<br>`44.46`<br>`44.79`|`35.55`<br>`29.94`<br>`30.04`|`25.03`<br>`20.13`<br>`19.75`|
 |**DieT + transformer**|`train`<br>`val`<br>`test`|`70.43`<br>`62.71`<br>`62.57`|`53.22`<br>`43.71`<br>`44.09`|`42.16`<br>`34.58`<br>`35.11`|`35.15`<br>`29.32`<br>`29.80`|
-
-
 
 ### COCO val2014
 
