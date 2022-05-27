@@ -46,6 +46,7 @@ If you want to try re-train our models and/or observe evaluation results you are
 Open any notebook from there and follow the instructions inside.
 
 # Evaluation results
+Link to the [report](https://drive.google.com/file/d/1HQNj1tH1ESiX70vHCprr6sSu85WJwlhD/view?usp=sharing) 
 ### Flickr8k
 
 |||bleu 1|bleu 2|bleu 3|bleu 4|
