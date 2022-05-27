@@ -40,7 +40,7 @@ def train_model(train_loader, model, loss_fn, optimizer,
     return running_loss / len(train_loader)
 
 
-def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, data='flickr', desc=''):
+def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, data='flickr', desc='', device='cpu'):
     running_bleu = [0.0] * 5
     model.eval()
     t = tqdm(iter(data_loader), desc=f'{desc}')
@@ -53,6 +53,7 @@ def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, data='f
                 captions.append([toks])       
         else:
             images, captions, _ = batch
+        images = images.to(device)
         outputs = tensor_to_word_fn(model.sample(images).cpu().numpy())
 
         for i in (1, 2, 3, 4):
