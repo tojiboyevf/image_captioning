@@ -73,7 +73,7 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
 
 
 
-### COCO(2014) mini
+### COCO val2014
 
 ||bleu 1|bleu 2|bleu 3|bleu 4|
 |:---|:---:|:---:|:---:|:---:|
