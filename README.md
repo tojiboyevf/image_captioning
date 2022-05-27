@@ -1,6 +1,3 @@
-## Guys, training `.ipynb` file is `densenet161_lstm.ipynb`. You can look at this notebook and write your own model. Just enough to replace your model in this notebook and you can choose different parameters if you wish.
-## Guys, inference example is `examples_otherfiles/inference_transformer.ipynb` file
-
 # Steps
 1. Clone this repository
 ```bash
