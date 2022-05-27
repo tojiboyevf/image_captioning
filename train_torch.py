@@ -1,6 +1,6 @@
 import torch
 from torch.nn.utils.rnn import pack_padded_sequence
-
+import nltk
 from tqdm.auto import tqdm
 
 def train_model(train_loader, model, loss_fn, optimizer,
@@ -46,7 +46,11 @@ def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, data='f
     t = tqdm(iter(data_loader), desc=f'{desc}')
     for batch_idx, batch in enumerate(t):
         if data=='coco':
-            images, captions = batch
+            images, caption_list = batch
+            captions = []
+            for caption in caption_list:
+                toks = nltk.word_tokenize(caption.lower())
+                captions.append([toks])       
         else:
             images, captions, _ = batch
         outputs = tensor_to_word_fn(model.sample(images).cpu().numpy())

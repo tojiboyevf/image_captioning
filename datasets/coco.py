@@ -21,7 +21,8 @@ def CoCoDataloader(transform,
                img_folder='data/coco/val2014',
                annotations_file='data/coco/annotations/captions_val2014.json',
                shuffle=True,
-               random_seed=42):
+               random_seed=42,
+               device='cuda'):
     
     
 
@@ -34,8 +35,8 @@ def CoCoDataloader(transform,
                           unk_word=unk_word,
                           annotations_file=annotations_file,
                           vocab_from_file=vocab_from_file,
-                          img_folder=img_folder)
-
+                          img_folder=img_folder,
+                          device=device)
 
     indices = dataset.get_train_indices()
 
@@ -62,13 +63,13 @@ def CoCoDataloader(transform,
 class CoCoDataset(data.Dataset):
     
     def __init__(self, transform, batch_size, vocab_threshold, vocab_file, start_word, 
-        end_word, unk_word, annotations_file, vocab_from_file, img_folder):
+        end_word, unk_word, annotations_file, vocab_from_file, img_folder, device):
         self.transform = transform
         self.batch_size = batch_size
         self.vocab = Vocabulary(vocab_threshold, vocab_file, start_word,
             end_word, unk_word, annotations_file, vocab_from_file)
         self.img_folder = img_folder
-
+        self.device = device
         self.coco = COCO(annotations_file)
         self.ids = list(self.coco.anns.keys())
         print('Obtaining caption lengths...')
@@ -85,7 +86,7 @@ class CoCoDataset(data.Dataset):
 
         image = Image.open(os.path.join(self.img_folder, path)).convert('RGB')
         # orig_image = np.array(image)
-        image = self.transform(image)
+        image = self.transform(image).to(self.device)
 
         return image, caption
 
