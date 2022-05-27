@@ -4,3 +4,6 @@ __pycache__/
 annotations/
 .DS_Store
 data/
+vocab_set.pkl
+examples/saved_models
+*.pt

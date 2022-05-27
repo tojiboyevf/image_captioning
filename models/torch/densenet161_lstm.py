@@ -4,35 +4,13 @@ from torch.nn import functional as F
 import torchvision.models as models
 
 from models.torch.decoders.monolstm import Decoder
-
-
-class Encoder(nn.Module):
-    def __init__(self, embed_size):
-        """Load the pretrained Densenet-161 and replace top classifier layer."""
-        super(Encoder, self).__init__()
-        densenet = models.densenet161(pretrained=True)
-        modules = list(densenet.children())[:-1]
-        self.densenet = nn.Sequential(*modules)
-        self.embed = nn.Sequential(
-            nn.Linear(densenet.classifier.in_features, embed_size),
-            nn.Dropout(p=0.5),
-        )
-        self.bn = nn.BatchNorm1d(embed_size, momentum=0.01)
-
-    def forward(self, images):
-        """Extract feature vectors from input images."""
-        with torch.no_grad():
-            features = self.densenet(images)
-            features = F.relu(features, inplace=True)
-            features = F.avg_pool2d(features, kernel_size=7).view(features.size(0), -1)
-        features = self.embed(features)
-        features = self.bn(features)
-        return features
+from models.torch.encoders.densenet161 import Encoder
 
 
 class Captioner(nn.Module):
     def __init__(self, embed_size, hidden_size, vocab_size, num_layers=1, embedding_matrix=None, train_embd=True):
         super().__init__()
+        self.name = "densenet161_lstm"
         self.encoder = Encoder(embed_size)
         self.decoder = Decoder(embed_size, hidden_size, vocab_size, num_layers,
                                embedding_matrix=embedding_matrix, train_embd=train_embd)

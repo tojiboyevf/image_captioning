@@ -3,7 +3,9 @@ from torch.nn.utils.rnn import pack_padded_sequence
 
 from tqdm.auto import tqdm
 
-def train_model(train_loader, model, loss_fn, optimizer, desc='', log_interval=25):
+def train_model(train_loader, model, loss_fn, optimizer,
+                acc_fn=lambda source, target: (torch.argmax(source, dim=1) == target).sum().float().item() / target.size(0),
+                desc='', log_interval=25):
     running_acc = 0.0
     running_loss = 0.0
     model.train()
@@ -25,7 +27,7 @@ def train_model(train_loader, model, loss_fn, optimizer, desc='', log_interval=2
         loss.backward()
         optimizer.step()
 
-        running_acc += (torch.argmax(outputs, dim=1) == targets).sum().float().item() / targets.size(0)
+        running_acc += acc_fn(outputs, targets)
         running_loss += loss.item()
         t.set_postfix({'loss': running_loss / (batch_idx + 1),
                        'acc': running_acc / (batch_idx + 1),
@@ -38,16 +40,19 @@ def train_model(train_loader, model, loss_fn, optimizer, desc='', log_interval=2
     return running_loss / len(train_loader)
 
 
-def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, desc=''):
+def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, data='flickr', desc=''):
     running_bleu = [0.0] * 5
     model.eval()
     t = tqdm(iter(data_loader), desc=f'{desc}')
     for batch_idx, batch in enumerate(t):
-        images, captions, _ = batch
+        if data=='coco':
+            images, captions = batch
+        else:
+            images, captions, _ = batch
         outputs = tensor_to_word_fn(model.sample(images).cpu().numpy())
 
         for i in (1, 2, 3, 4):
-            running_bleu[i] += bleu_score_fn(reference_corpus=captions, candidate_corpus=outputs, n=i)
+            running_bleu[i] += bleu_score_fn(captions, outputs, n=i)
         t.set_postfix({
             'bleu1': running_bleu[1] / (batch_idx + 1),
             'bleu4': running_bleu[4] / (batch_idx + 1),
