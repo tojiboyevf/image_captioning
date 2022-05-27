@@ -13,11 +13,10 @@ def check_create_dir(full_path):
 
 def get_picture_caption(idx, dataset, model, idx2word, beam_width=-1):
     """
-    If beam_width=-1 then it is greedy mode!
+    GREEDY! beam_width is not used!!!
     """
     im, cp, _ = dataset[idx]
-    if beam_width==-1:
-        capidx = model.sample(im.unsqueeze(0))[0].detach().cpu().numpy()
+    capidx = model.sample(im.unsqueeze(0))[0].detach().cpu().numpy()
     caption_pred = ''.join(list(itertools.takewhile(lambda word: word.strip() != '<end>',
                                                          map(lambda idx: idx2word[idx]+' ', iter(capidx))))[1:])
     return caption_pred

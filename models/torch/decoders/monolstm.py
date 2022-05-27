@@ -28,7 +28,7 @@ class Decoder(nn.Module):
         # [b, max_len, embed_dim]
         inputs = torch.cat((features.unsqueeze(1), embeddings), 1)
         # (0)[sum_len, embed_dim]
-        inputs_packed = pack_padded_sequence(inputs, lengths=lengths, batch_first=True, enforce_sorted=False)#enforce_sorted=True)
+        inputs_packed = pack_padded_sequence(inputs, lengths=lengths, batch_first=True, enforce_sorted=True)
         # (0)[sum_len, embed_dim]
         hiddens, _ = self.lstm(inputs_packed)
         # [sum_len, vocab_size]
