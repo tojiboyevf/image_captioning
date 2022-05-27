@@ -67,7 +67,7 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
 |||bleu 1|bleu 2|bleu 3|bleu 4|
 |:---|:---:|:---:|:---:|:---:|:---:|
 |**densenet161 + transformer**|`train`<br>`val`<br>`test`|`69.55`<br>`65.71`<br>`65.98`|`49.93`<br>`44.46`<br>`44.79`|`35.55`<br>`29.94`<br>`30.04`|`25.03`<br>`20.13`<br>`19.75`|
-|**VGG16 + LSTM**|`train`<br>`val`<br>`test`|`55.53`<br>`55.14`<br>`55.41`|`34.94`<br>`34.42`<br>`34.34`|`21.94`<br>`21.36`<br>`21.13`|`14.02`<br>`13.47`<br>`13.29`|
+|**vgg16 + lstm**|`train`<br>`val`<br>`test`|`55.53`<br>`55.14`<br>`55.41`|`34.94`<br>`34.42`<br>`34.34`|`21.94`<br>`21.36`<br>`21.13`|`14.02`<br>`13.47`<br>`13.29`|
 
 
 ### COCO(2014) mini
@@ -75,4 +75,4 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
 ||bleu 1|bleu 2|bleu 3|bleu 4|
 |:---|:---:|:---:|:---:|:---:|
 |**densenet161 + transformer**|`30.24`|`12.80`|`6.00`|`3.32`|
-|**VGG16 + LSTM**|`26.04`|`9.96`|`4.16`|`2.21`|
+|**vgg16 + lstm**|`26.04`|`9.96`|`4.16`|`2.21`|
