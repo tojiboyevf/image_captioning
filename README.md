@@ -40,18 +40,10 @@ $ bash load_flickr8k.sh
 $ bash load_glove.sh
 $ bash load_coco.sh
 ```
-
-3. If you want to reproduce the results for densenet161 + lstm ot vgg16 + lstm then:
-```bash
-$ cp ./examples/cnn_lstm.ipynb ./
-```
-```bash
-run cnn_lstm.ipynb in jupyter notebook
-```
 # Quick start
 If you want to try re-train our models and/or observe evaluation results you are welcome to `examples` folder.
 
-Open any notebook from there and follow the instructions inside.(Here you need ./data directory inside ./examples)
+Open any notebook from there and follow the instructions inside.
 
 # Evaluation results
 ### Flickr8k
