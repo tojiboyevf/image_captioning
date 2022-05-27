@@ -73,4 +73,4 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
 
 ||bleu 1|bleu 2|bleu 3|bleu 4|
 |:---|:---:|:---:|:---:|:---:|
-|**densenet161 + transformer**|`16.50`|`22.90`|`23.30`|`22.26`|
+|**densenet161 + transformer**|`30.24`|`12.80`|`6.00`|`3.32`|
