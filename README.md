@@ -27,7 +27,7 @@ In order to read and run `Jupyter Notebooks` you may follow either of two option
   either with `mamba install jupyterlab` or with `mamba install jupyter notebook`
 
 *Note*: If you prefer to use `conda`, just replace `mamba` commands with `conda`, e.g. instead of `mamba install` use `conda install`.
-# Steps
+# General setup
 1. Clone this repository
 ```bash
 $ git clone https://github.com/tojiboyevf/image_captioning.git
@@ -40,14 +40,10 @@ $ bash load_flickr8k.sh
 $ bash load_glove.sh
 $ bash load_coco.sh
 ```
+# Quick start
+If you want to try re-train our models and/or observe evaluation results you are welcome to `examples` folder.
 
-3. If you want to get the results for densenet161+lstm or vgg16+lstm then:
-```bash
-$ cp ./examples/cnn_lstm.ipynb ./
-```
-```
-run cnn_lstm.ipynb in the jupyter notebook(use instructions inside the notebook)
-```
+Open any notebook from there and follow the instructions inside.
 
 # Evaluation results
 ### Flickr8k
