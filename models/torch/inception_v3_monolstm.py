@@ -1,7 +1,4 @@
-import torch
 import torch.nn as nn
-from torch.nn import functional as F
-import torchvision
 
 from models.torch.decoders.monolstm import Decoder
 from models.torch.encoders.inception_v3 import Encoder
@@ -10,6 +7,7 @@ from models.torch.encoders.inception_v3 import Encoder
 class Captioner(nn.Module):
     def __init__(self, embed_size, hidden_size, vocab_size, num_layers=1, embedding_matrix=None, train_embd=True):
         super().__init__()
+        self.name = 'inceptionv3_lstm'
         self.encoder = Encoder(embed_size)
         self.decoder = Decoder(embed_size, hidden_size, vocab_size, num_layers,
                                embedding_matrix=embedding_matrix, train_embd=train_embd)

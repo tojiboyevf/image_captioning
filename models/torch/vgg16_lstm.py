@@ -5,6 +5,7 @@ from models.torch.encoders.vgg16 import Encoder
 class Captioner(nn.Module):
     def __init__(self, embed_size, hidden_size, vocab_size, num_layers=1, embedding_matrix=None, train_embd=True):
         super().__init__()
+        self.name = 'vgg16_lstm'
         self.encoder = Encoder(embed_size)
         self.decoder = Decoder(
             embed_size, hidden_size, vocab_size, num_layers,
