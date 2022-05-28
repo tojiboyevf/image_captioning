@@ -55,6 +55,7 @@ Link to the [report](https://drive.google.com/file/d/1HQNj1tH1ESiX70vHCprr6sSu85
 |**densenet161 + lstm**|`train`<br>`val`<br>`test`|`55.05`<br>`55.18`<br>`55.27`|`31.18`<br>`31.23`<br>`30.76`|`17.79`<br>`17.75`<br>`17.11`|`10.84`<br>`10.78`<br>`10.23`|
 |**densenet161 + transformer**|`train`<br>`val`<br>`test`|`69.55`<br>`65.71`<br>`65.98`|`49.93`<br>`44.46`<br>`44.79`|`35.55`<br>`29.94`<br>`30.04`|`25.03`<br>`20.13`<br>`19.75`|
 |**DieT + transformer**|`train`<br>`val`<br>`test`|`70.43`<br>`62.71`<br>`62.57`|`53.22`<br>`43.71`<br>`44.09`|`42.16`<br>`34.58`<br>`35.11`|`35.15`<br>`29.32`<br>`29.80`|
+|**inceptionV3 + transformer**|`train`<br>`val`<br>`test`|`61.44`<br>`60.37`<br>`60.19`|`41.09`<br>`39.84`<br>`39.19`|`27.52`<br>`26.26`<br>`25.70`|`18.29`<br>`17.25`<br>`16.70`|
 
 ### COCO val2014
 
