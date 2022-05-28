@@ -22,4 +22,4 @@ class Captioner(nn.Module):
         features = features.unsqueeze(1)
         captions = self.decoder.sample(features=features, max_len=max_len,
                                        start_token=start_token, pad_token=pad_token)
-        return captions.permute(1,0)
+        return captions
