@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch
 import math
-from .encoders.ViT import Encoder
+from .encoders.diet import Encoder
 from models.torch.layers import embedding_layer
 
 class PositionalEncoding(nn.Module):
