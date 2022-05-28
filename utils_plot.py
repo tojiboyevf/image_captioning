@@ -1,47 +1,28 @@
-import itertools
-
-import numpy as np
 from PIL import Image
 from matplotlib import pyplot as plt, cm as cm
-import skimage
-import skimage.transform
+from utils_torch import *
 
 
-def visualize_att(image_path, seq, alphas, idx2word, endseq='<end>', smooth=True):
-    """
-    Visualizes caption with weights at every word.
-
-    Adapted from paper authors' repo: https://github.com/kelvinxu/arctic-captions/blob/master/alpha_visualization.ipynb
-
-    :param image_path: path to image that has been captioned
-    :param seq: caption
-    :param alphas: weights
-    :param idx2word: reverse word mapping, i.e. ix2word
-    :param smooth: smooth weights?
-    """
-    image = Image.open(image_path)
-    image = image.resize([14 * 24, 14 * 24], Image.LANCZOS)
-
-    # words = [idx2word[ind] for ind in seq]
-    words = list(itertools.takewhile(lambda word: word != endseq,
-                                     map(lambda idx: idx2word[idx], iter(seq))))
-
-    for t in range(len(words)):
-        if t > 50:
-            break
-        plt.subplot(np.ceil(len(words) / 5.), 5, t + 1)
-
-        plt.text(0, 1, '%s' % (words[t]), color='black', backgroundcolor='white', fontsize=12)
-        plt.imshow(image)
-        current_alpha = alphas[t, :]
-        if smooth:
-            alpha = skimage.transform.pyramid_expand(current_alpha.numpy(), upscale=24, sigma=8)
-        else:
-            alpha = skimage.transform.resize(current_alpha.numpy(), [14 * 24, 14 * 24])
-        if t == 0:
-            plt.imshow(alpha, alpha=0)
-        else:
-            plt.imshow(alpha, alpha=0.8)
-        plt.set_cmap(cm.Greys_r)
+def display_images_with_captions(idx2spatial, dset, model, idx2word, metric):
+    for idx in idx2spatial:
+        x1_y1, x2_y2, x3_y3 = idx2spatial[idx]
+        generated_caption = get_picture_caption(idx, dset, model, idx2word)
+        score = f"BLEU@4: {metric([[i.split() for i in dset.get_image_captions(idx)[1]]], [generated_caption.split()], n=4):0.2f}"
+        img = Image.open(dset.get_image_captions(idx)[0])
+        plt.figure(figsize=(12, 6), facecolor="white")
+        plt.imshow(img)
         plt.axis('off')
-    plt.show()
+        plt.title(model.name, fontsize=20)
+        plt.text(
+            *x1_y1, "Gen.: " + generated_caption,
+            fontsize=16, bbox=dict(fill=False, edgecolor='black', linewidth=2)
+        )
+        plt.text(
+            *x2_y2, "GT: " + dset.get_image_captions(idx)[1][0],
+            fontsize=16, bbox=dict(fill=False, edgecolor='black', linewidth=2)
+        )
+        plt.text(
+            *x3_y3, score,
+            fontsize=16,
+        )
+        plt.show()

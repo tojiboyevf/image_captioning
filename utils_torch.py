@@ -169,3 +169,19 @@ def words_from_tensors_fn(idx2word, max_len=40, startseq='<start>', endseq='<end
         return captoks
 
     return words_from_tensors
+
+def get_best_and_worst_quality_captions(dset, model, idx2word, metric):
+    maxs = 0
+    mins = 100
+    idmint = None
+    idmaxt = None
+    for idx in range(len(dset)):
+        generated_caption = get_picture_caption(idx, dset, model, idx2word)
+        score = metric([[i.split() for i in dset.get_image_captions(idx)[1]]], [generated_caption.split()], n=4)
+        if maxs < score:
+            maxs = score
+            idmaxt = idx
+        if mins > score:
+            mins = score
+            idmint = idx
+    return [idmaxt, idmint]

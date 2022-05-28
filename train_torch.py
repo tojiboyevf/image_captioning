@@ -1,6 +1,5 @@
 import torch
 from torch.nn.utils.rnn import pack_padded_sequence
-import nltk
 from tqdm.auto import tqdm
 
 def train_model(train_loader, model, loss_fn, optimizer,
