@@ -37,6 +37,7 @@ class Flickr8kDataset(Dataset):
         self.dist_list = {
             'train': dataset_base_path + 'Flickr8k_text/Flickr_8k.trainImages.txt',
             'val': dataset_base_path + 'Flickr8k_text/Flickr_8k.devImages.txt',
+            'valloss': dataset_base_path + 'Flickr8k_text/Flickr_8k.devImages.txt',
             'test': dataset_base_path + 'Flickr8k_text/Flickr_8k.testImages.txt'
         }
 
