@@ -1,4 +1,4 @@
-# Image captioning generator
+# Image Caption Generator
 Final project from Deep Learning 2022 course Skoltech
 
 Team members:
