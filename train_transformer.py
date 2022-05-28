@@ -1,7 +1,9 @@
 import torch
 from tqdm.auto import tqdm
 
-def train_model(train_loader, model, loss_fn, acc_fn, optimizer, pad_token=58, desc='', log_interval=25):
+def train_model(train_loader, model, loss_fn, optimizer,
+                acc_fn=lambda source, target: (torch.argmax(source, dim=1) == target).sum().float().item() / target.size(0),
+                pad_token=58, desc='', log_interval=25):
     running_acc = 0.0
     running_loss = 0.0
     total_train_words = 0
