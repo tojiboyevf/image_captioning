@@ -4,10 +4,10 @@ Final project from Deep Learning 2022 course Skoltech
 Team members:
 * Farid Davletshin
 * Fakhriddin Tojiboev
-* Alber Sayapin
+* Albert Sayapin
 * Olga Gorbunova
 * Evgeniy Garsiya
-* Hai Lee
+* Hai Le
 * Lina Bashaeva
 * Dmitriy Gilyov
 
