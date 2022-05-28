@@ -60,7 +60,7 @@ If you want to try re-train our models and/or observe evaluation results you are
 Open any notebook from there and follow the instructions inside.
 
 # Evaluation results
-Link to the [report](report/report.pdf) 
+Link to the [report](report/final_report.pdf) 
 ### Flickr8k
 
 |||bleu 1|bleu 2|bleu 3|bleu 4|
