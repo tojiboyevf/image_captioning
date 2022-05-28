@@ -9,6 +9,7 @@ Team members:
 * Evgeniy Garsiya
 * Hai Lee
 * Lina Bashaeva
+* Dmitriy Gilyov
 
 
 # Environment
