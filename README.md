@@ -65,3 +65,4 @@ Link to the [report](https://drive.google.com/file/d/1HQNj1tH1ESiX70vHCprr6sSu85
 |**densenet161 + lstm**|`27.48`|`9.72`|`3.93`|`2.14`|
 |**densenet161 + transformer**|`30.24`|`12.80`|`6.00`|`3.32`|
 |**DieT + transformer**|`29.94`|`12.90`|`6.19`|`4.06`|
+|**inceptionV3 + transformer**|`49.14`|`26.49`|`14.21`|`8.11`|
