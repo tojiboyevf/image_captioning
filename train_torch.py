@@ -46,11 +46,7 @@ def evaluate_model(data_loader, model, bleu_score_fn, tensor_to_word_fn, data='f
     t = tqdm(iter(data_loader), desc=f'{desc}')
     for batch_idx, batch in enumerate(t):
         if data=='coco':
-            images, caption_list = batch
-            captions = []
-            for caption in caption_list:
-                toks = nltk.word_tokenize(caption.lower())
-                captions.append([toks])       
+            images, captions = batch      
         else:
             images, captions, _ = batch
         images = images.to(device)

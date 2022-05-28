@@ -4,24 +4,32 @@ import torch.utils.data as data
 from vocabulary import Vocabulary
 from PIL import Image
 from pycocotools.coco import COCO
-import numpy as np
-from tqdm import tqdm
+from torch import stack
+
+def collate_fn_custom(batch):
+    images = list()
+    captions = list()
+
+    for b in batch:
+        images.append(b[0])
+        captions.append(b[1])
+
+    images = stack(images, dim=0)
+
+    return images, captions
 
 
 def CoCoDataloader(transform,
-               batch_size=1,
-               vocab_threshold=None,
+               batch_size=128,
+               vocab_threshold=5,
                vocab_file='./vocab_set.pkl',
                start_word="<start>",
                end_word="<end>",
                unk_word="<unk>",
                vocab_from_file=True,
-               size=0.1,
                num_workers=2,
                img_folder='data/coco/val2014',
-               annotations_file='data/coco/annotations/captions_val2014.json',
-               shuffle=True,
-               random_seed=42):
+               annotations_file='data/coco/annotations/captions_val2014.json'):
     
     
 
@@ -36,27 +44,15 @@ def CoCoDataloader(transform,
                           vocab_from_file=vocab_from_file,
                           img_folder=img_folder)
 
-    indices = dataset.get_train_indices()
-
-    dataset_size = len(dataset)
-    indices = list(range(dataset_size))
-    split = int(np.floor(size * dataset_size))
-
-    if shuffle :
-        np.random.seed(random_seed)
-        np.random.shuffle(indices)
-
-    indices = indices[:split]
-
-    initial_sampler = data.sampler.SubsetRandomSampler(indices)
-
-    data_loader = data.DataLoader(dataset=dataset, 
-                                    num_workers=num_workers,
-                                    batch_sampler=data.sampler.BatchSampler(sampler=initial_sampler,
-                                                                            batch_size=dataset.batch_size,
-                                                                            drop_last=False))
+    data_loader = data.DataLoader(dataset=dataset,
+                                      batch_size=dataset.batch_size,
+                                      shuffle=False,
+                                      collate_fn = collate_fn_custom,
+                                      num_workers=num_workers)
 
     return data_loader
+
+
 
 class CoCoDataset(data.Dataset):
     
@@ -69,30 +65,24 @@ class CoCoDataset(data.Dataset):
         self.img_folder = img_folder
 
         self.coco = COCO(annotations_file)
-        self.ids = list(self.coco.anns.keys())
-        print('Obtaining caption lengths...')
-        all_tokens = [nltk.tokenize.word_tokenize(str(self.coco.anns[self.ids[index]]['caption']).lower()) for index in tqdm(np.arange(len(self.ids)))]
-        self.caption_lengths = [len(token) for token in all_tokens]
-
+        self.ids = list(self.coco.imgToAnns.keys())
         
     def __getitem__(self, index):
 
         ann_id = self.ids[index]
-        caption = self.coco.anns[ann_id]['caption']
-        img_id = self.coco.anns[ann_id]['image_id']
+        captions = []
+
+        for i in range(5):
+            captions.append(nltk.word_tokenize(self.coco.imgToAnns[ann_id][i]['caption'].lower()))
+
+        img_id = self.coco.imgToAnns[ann_id][0]['image_id']
         path = self.coco.loadImgs(img_id)[0]['file_name']
 
         image = Image.open(os.path.join(self.img_folder, path)).convert('RGB')
         # orig_image = np.array(image)
         image = self.transform(image)
 
-        return image, caption
-
-    def get_train_indices(self):
-        sel_length = np.random.choice(self.caption_lengths)
-        all_indices = np.where([self.caption_lengths[i] == sel_length for i in np.arange(len(self.caption_lengths))])[0]
-        indices = list(np.random.choice(all_indices, size=self.batch_size))
-        return indices
+        return image, captions
 
     def __len__(self):
         return len(self.ids)
