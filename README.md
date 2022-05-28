@@ -1,3 +1,16 @@
+# Image captioning generator
+Final project from Deep Learning 2022 course Skoltech
+
+Team members:
+* Farid Davletshin
+* Fakhriddin Tojiboev
+* Alber Sayapin
+* Olga Gorbunova
+* Evgeniy Garsiya
+* Hai Lee
+* Lina Bashaeva
+
+
 # Environment
 We use `conda` package manager to install required python packages. In order to improve speed and reliability of package version resolution it is advised to use `mamba-forge` ([installation](https://github.com/conda-forge/miniforge#mambaforge)) that works over `conda`. Once `mamba is installed`, run the following command (while in the root of the repository):
 ```
