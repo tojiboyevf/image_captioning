@@ -1,7 +1,4 @@
-import torch
 import torch.nn as nn
-from torch.nn import functional as F
-import torchvision.models as models
 
 from models.torch.decoders.monolstm import Decoder
 from models.torch.encoders.densenet161 import Encoder
