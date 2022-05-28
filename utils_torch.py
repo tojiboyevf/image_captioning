@@ -22,21 +22,6 @@ def get_picture_caption(idx, dataset, model, idx2word, beam_width=-1):
     return caption_pred
 
 
-def preprocess_input(x):
-    x -= 0.5
-    x *= 2.
-    return x
-
-
-# returns (3, h, w)
-def preprocess(image_path, trans):
-    img = Image.open(image_path).convert('RGB')
-    x = trans(img)
-    x = x.unsqueeze(0)
-    # x = preprocess_input(x)
-    return x
-
-
 def greedy_predictions_gen(encoding_dict, model, word2idx, idx2word, images, max_len,
                            startseq="<start>", endseq="<end>", device=torch.device('cpu')):
     def greedy_search_predictions_util(image):
