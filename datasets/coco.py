@@ -79,7 +79,6 @@ class CoCoDataset(data.Dataset):
         path = self.coco.loadImgs(img_id)[0]['file_name']
 
         image = Image.open(os.path.join(self.img_folder, path)).convert('RGB')
-        # orig_image = np.array(image)
         image = self.transform(image)
 
         return image, captions
