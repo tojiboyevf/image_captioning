@@ -72,6 +72,7 @@ Link to the [report](report/final_report.pdf)
 |**DieT + lstm**|`train`<br>`val`<br>`test`|`56.06`<br>`53.23`<br>`53.48`|`34.40`<br>`30.86`<br>`31.06`|`20.97`<br>`17.62`<br>`17.61`|`13.24`<br>`10.91`<br>`10.61`|
 |**DieT + transformer**|`train`<br>`val`<br>`test`|`70.43`<br>`62.71`<br>`62.57`|`53.22`<br>`43.71`<br>`44.09`|`42.16`<br>`34.58`<br>`35.11`|`35.15`<br>`29.32`<br>`29.80`|
 |**inceptionV3 + transformer**|`train`<br>`val`<br>`test`|`61.44`<br>`60.37`<br>`60.19`|`41.09`<br>`39.84`<br>`39.19`|`27.52`<br>`26.26`<br>`25.70`|`18.29`<br>`17.25`<br>`16.70`|
+|**resnet34 + transformer**|`train`<br>`val`<br>`test`|`67.23`<br>`63.33`<br>`63.70`|`48.05`<br>`42.58`<br>`42.92`|`34.08`<br>`28.69`<br>`29.19`|`23.84`<br>`19.22`<br>`19.51`|
 
 ### COCO val2014
 
